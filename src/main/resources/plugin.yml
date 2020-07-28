@@ -1,0 +1,8 @@
+name: mineEasyPlots
+version: ${project.version}
+main: pl.mineEasyPlots.Main
+api-version: 1.16
+depend: [WorldGuard]
+authors: [_arturek]
+description: Easy secure for your area! 
+website: https://minecodes.pl/
