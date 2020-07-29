@@ -36,6 +36,42 @@ public class Messages {
 
             msg = config.getString("messages." + mess);
 
+            if (mess.equalsIgnoreCase("commandHelp")) {
+                List<String> join = config.getStringList("messages.commandHelp");
+                StringBuilder sb = new StringBuilder();
+                for (String s : join) {
+                    sb.append(s + ";");
+                }
+                if (!messages.containsKey(mess)) {
+                    messages.put(mess, sb.toString());
+                }
+                return sb.toString();
+            }
+
+            if (mess.equalsIgnoreCase("plotInfo")) {
+                List<String> join = config.getStringList("messages.plotInfo");
+                StringBuilder sb = new StringBuilder();
+                for (String s : join) {
+                    sb.append(s + ";");
+                }
+                if (!messages.containsKey(mess)) {
+                    messages.put(mess, sb.toString());
+                }
+                return sb.toString();
+            }
+
+            if (mess.equalsIgnoreCase("plotLoreInGui")) {
+                List<String> join = config.getStringList("messages.plotLoreInGui");
+                StringBuilder sb = new StringBuilder();
+                for (String s : join) {
+                    sb.append(s + ";");
+                }
+                if (!messages.containsKey(mess)) {
+                    messages.put(mess, sb.toString());
+                }
+                return sb.toString();
+            }
+
             if (msg != null) {
                 messages.put(mess, msg);
                 return ColorUtil.fix(msg);

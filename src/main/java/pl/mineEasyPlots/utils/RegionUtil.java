@@ -45,10 +45,8 @@ public class RegionUtil {
 
 
         for (ProtectedRegion rg : region.getIntersectingRegions(regions.getRegions().values())) {
-            if (!rg.getOwners().contains(p.getName())) {
-                ColorUtil.sendMsg(p, Messages.getMessage("errorCreatePlot"));
-                return false;
-            }
+            ColorUtil.sendMsg(p, Messages.getMessage("errorCreatePlot"));
+            return false;
         }
 
         //add region

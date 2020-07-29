@@ -6,3 +6,6 @@ depend: [WorldGuard]
 authors: [_arturek]
 description: Easy secure for your area! 
 website: https://minecodes.pl/
+commands:
+  plot:
+    aliases: [p, plots]
