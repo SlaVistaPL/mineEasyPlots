@@ -1,0 +1,5 @@
+#Plot size from center
+plotSize: 20
+#Plot block | After place this block plot will be create!
+plotBlock: NOTE_BLOCK
+
