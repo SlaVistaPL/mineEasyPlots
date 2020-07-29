@@ -19,6 +19,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import pl.mineEasyPlots.configs.Config;
 import pl.mineEasyPlots.configs.Messages;
+import pl.mineEasyPlots.managers.UserManager;
+import pl.mineEasyPlots.objects.User;
 import pl.mineEasyPlots.utils.ColorUtil;
 
 import java.util.List;
@@ -45,6 +47,13 @@ public class PlotCommand implements CommandExecutor {
             }
 
             return false;
+        }
+
+        if (args[0].equalsIgnoreCase("visualize")) {
+
+            User u = UserManager.getUser(p.getName());
+
+            u.setVisualize(!u.isVisualize());
         }
 
         if (args[0].equalsIgnoreCase("info")) {
