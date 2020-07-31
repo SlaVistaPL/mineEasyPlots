@@ -3,7 +3,7 @@ package pl.mineEasyPlots.objects;
 public class User {
 
     private String name;
-    private boolean visualizes;
+    private boolean visualized;
 
     public String getName() {
         return name;
@@ -13,11 +13,11 @@ public class User {
         this.name = name;
     }
 
-    public boolean isVisualizes() {
-        return visualizes;
+    public boolean isVisualized() {
+        return visualized;
     }
 
-    public void setVisualizes(boolean visualizes) {
-        this.visualizes = visualizes;
+    public void setVisualize(boolean visualizes) {
+        this.visualized = visualizes;
     }
 }

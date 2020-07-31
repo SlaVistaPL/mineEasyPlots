@@ -33,7 +33,7 @@ public class PlotCommand implements CommandExecutor {
     public boolean onCommand(CommandSender s, Command cmd, String lib, String[] args) {
 
         if (!(s instanceof Player)) {
-            s.sendMessage("Command for player");
+            s.sendMessage("Only player can use this command!");
             return false;
         }
 
@@ -50,13 +50,13 @@ public class PlotCommand implements CommandExecutor {
             return false;
         }
 
-        if (args[0].equalsIgnoreCase("visualizes")) {
+        if (args[0].equalsIgnoreCase("visualize")) {
 
             User u = UserManager.getUser(p.getName());
 
-            u.setVisualizes(!u.isVisualizes());
+            u.setVisualize(!u.isVisualized());
 
-            ColorUtil.sendMsg(p, Messages.getMessage("toggleVisualizesPlot").replace("{value}", u.isVisualizes() ? "Enable" : "Disable"));
+            ColorUtil.sendMsg(p, Messages.getMessage("toggleVisualizesPlot").replace("{value}", u.isVisualized() ? "Enable" : "Disable"));
             return false;
         }
 
@@ -127,7 +127,7 @@ public class PlotCommand implements CommandExecutor {
                     im.setDisplayName(ColorUtil.fix(Messages.getMessage("plotNameInGui") + plotId));
 
 
-                    List<String> lore = Lists.newArrayList();
+                    List<String> lore = new ArrayList<>();
 
                     String[] m = Messages.getMessage("plotLoreInGui").split(";");
 
@@ -171,7 +171,7 @@ public class PlotCommand implements CommandExecutor {
 
         if (args[0].equalsIgnoreCase("add")) {
 
-            if (args.length != 2) {
+            if (args.length < 2) {
                 ColorUtil.sendMsg(p, Messages.getMessage("correctCommand") + "/plot add <nick>");
                 return false;
             }
@@ -205,7 +205,7 @@ public class PlotCommand implements CommandExecutor {
 
         if (args[0].equalsIgnoreCase("kick")) {
 
-            if (args.length != 2) {
+            if (args.length < 2) {
                 ColorUtil.sendMsg(p, Messages.getMessage("correctCommand") + "/plot kick <nick>");
                 return false;
             }

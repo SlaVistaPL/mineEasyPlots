@@ -30,7 +30,7 @@ public class PlotAdminCommand implements CommandExecutor {
     public boolean onCommand(CommandSender s, Command cmd, String label, String[] args) {
 
         if (!(s instanceof Player)) {
-            s.sendMessage("Command for player");
+            s.sendMessage("Only player can use this command!");
             return false;
         }
 
@@ -127,7 +127,7 @@ public class PlotAdminCommand implements CommandExecutor {
 
         if (args[0].equalsIgnoreCase("add")) {
 
-            if (args.length != 2) {
+            if (args.length < 2) {
                 ColorUtil.sendMsg(p, Messages.getMessage("correctCommand") + "/plot add <nick>");
                 return false;
             }
@@ -156,7 +156,7 @@ public class PlotAdminCommand implements CommandExecutor {
 
         if (args[0].equalsIgnoreCase("kick")) {
 
-            if (args.length != 2) {
+            if (args.length < 2) {
                 ColorUtil.sendMsg(p, Messages.getMessage("correctCommand") + "/plot kick <nick>");
                 return false;
             }
