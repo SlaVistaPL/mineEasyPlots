@@ -30,8 +30,6 @@ public class Updater {
 
     public Updater(Plugin plugin, String pluginurl) {
         this.version = "";
-        this.downloadURL = "";
-        this.changeLog = "";
         this.out = true;
         try {
             this.url = new URL(pluginurl);
@@ -61,8 +59,6 @@ public class Updater {
             Node nod = doc.getElementsByTagName("item").item(0);
             NodeList children = nod.getChildNodes();
             this.version = children.item(1).getTextContent();
-            this.downloadURL = children.item(3).getTextContent();
-            this.changeLog = children.item(5).getTextContent();
             if (newVersionAvailiable(this.plugin.getDescription().getVersion(), this.version.replaceAll("[a-zA-z ]", ""))) {
                 return true;
             }
