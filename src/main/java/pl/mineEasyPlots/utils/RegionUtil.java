@@ -10,6 +10,7 @@ import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import org.bukkit.entity.Player;
+import pl.mineEasyPlots.configs.Config;
 import pl.mineEasyPlots.configs.Messages;
 
 public class RegionUtil {
@@ -20,6 +21,26 @@ public class RegionUtil {
         RegionManager regions = container.get(BukkitAdapter.adapt(p.getWorld()));
 
         if (regions == null) {
+            return false;
+        }
+
+
+        int plotLimit = 0;
+        int playerPlotLimit;
+        if (p.hasPermission("mineeasyplots.vip")) {
+            playerPlotLimit = Config.getPlotsVipLimit();
+        } else {
+            playerPlotLimit = Config.getPlotsPlayerLimit();
+        }
+
+        for (ProtectedRegion pr : regions.getRegions().values()) {
+            if (pr.getOwners().contains(p.getName().toLowerCase())) {
+                plotLimit++;
+            }
+        }
+
+        if (plotLimit >= playerPlotLimit) {
+            ColorUtil.sendMsg(p, Messages.getMessage("limitPlots").replace("{limit}", String.valueOf(playerPlotLimit)));
             return false;
         }
 

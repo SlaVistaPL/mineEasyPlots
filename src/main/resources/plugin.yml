@@ -1,11 +1,13 @@
 name: mineEasyPlots
 version: ${project.version}
 main: pl.mineEasyPlots.Main
-api-version: 1.16
+api-version: 1.13
 depend: [WorldGuard]
 authors: [_arturek]
-description: Easy secure for your area! 
+description: Easy protection of your territory!
 website: https://minecodes.pl/
 commands:
   plot:
     aliases: [p, plots]
+  plotadmin:
+    aliases: [pa, plotsadmin]

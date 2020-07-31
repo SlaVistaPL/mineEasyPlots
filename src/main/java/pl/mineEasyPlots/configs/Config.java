@@ -12,6 +12,8 @@ public class Config {
 
     private static int plotSize;
     private static Material plotBlock;
+    private static int plotsPlayerLimit;
+    private static int plotsVipLimit;
 
     public static FileConfiguration getConfig() {
         return Main.getInst().getConfig();
@@ -45,7 +47,10 @@ public class Config {
     public static void load() {
 
         plotSize = getConfig().getInt("plotSize");
+        plotsPlayerLimit = getConfig().getInt("plotsPlayerLimit");
+        plotsVipLimit = getConfig().getInt("plotsVipLimit");
         plotBlock = Material.getMaterial(getConfig().getString("plotBlock"));
+
 
     }
 
@@ -53,15 +58,15 @@ public class Config {
         return plotSize;
     }
 
-    public static void setPlotSize(int plotSize) {
-        Config.plotSize = plotSize;
-    }
-
     public static Material getPlotBlock() {
         return plotBlock;
     }
 
-    public static void setPlotBlock(Material plotBlock) {
-        Config.plotBlock = plotBlock;
+    public static int getPlotsPlayerLimit() {
+        return plotsPlayerLimit;
+    }
+
+    public static int getPlotsVipLimit() {
+        return plotsVipLimit;
     }
 }

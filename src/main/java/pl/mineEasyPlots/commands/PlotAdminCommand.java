@@ -19,18 +19,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import pl.mineEasyPlots.configs.Config;
 import pl.mineEasyPlots.configs.Messages;
-import pl.mineEasyPlots.managers.UserManager;
-import pl.mineEasyPlots.objects.User;
 import pl.mineEasyPlots.utils.ColorUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlotCommand implements CommandExecutor {
-
+public class PlotAdminCommand implements CommandExecutor {
 
     @Override
-    public boolean onCommand(CommandSender s, Command cmd, String lib, String[] args) {
+    public boolean onCommand(CommandSender s, Command cmd, String label, String[] args) {
 
         if (!(s instanceof Player)) {
             s.sendMessage("Command for player");
@@ -39,9 +36,14 @@ public class PlotCommand implements CommandExecutor {
 
         Player p = (Player) s;
 
+        if (!p.hasPermission("mineEasyPlots.admin")) {
+            ColorUtil.sendMsg(p, Messages.getMessage("no-permissions"));
+            return false;
+        }
+
         if (args.length == 0) {
 
-            String[] m = Messages.getMessage("commandHelp").split(";");
+            String[] m = Messages.getMessage("commandAdminHelp").split(";");
 
             for (String st : m) {
                 ColorUtil.sendMsg(p, st);
@@ -50,62 +52,16 @@ public class PlotCommand implements CommandExecutor {
             return false;
         }
 
-        if (args[0].equalsIgnoreCase("visualizes")) {
-
-            User u = UserManager.getUser(p.getName());
-
-            u.setVisualizes(!u.isVisualizes());
-
-            ColorUtil.sendMsg(p, Messages.getMessage("toggleVisualizesPlot").replace("{value}", u.isVisualizes() ? "Enable" : "Disable"));
-            return false;
-        }
-
-        if (args[0].equalsIgnoreCase("info")) {
-
-            ApplicableRegionSet regions = WorldGuard.getInstance().getPlatform().getRegionContainer().get(new BukkitWorld(p.getWorld())).getApplicableRegions(BlockVector3.at(p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ()));
-
-
-            if (regions.size() == 0) {
-                ColorUtil.sendMsg(p, Messages.getMessage("thisRegionIsNotPlot"));
-                return false;
-            }
-
-            for (ProtectedRegion region : regions) {
-
-                int x = region.getMaximumPoint().getBlockX() - Config.getPlotSize();
-                int z = region.getMaximumPoint().getBlockZ() - Config.getPlotSize();
-
-                String[] m = Messages.getMessage("plotInfo").split(";");
-
-                StringBuilder members = new StringBuilder();
-                if (region.getMembers().getPlayers().isEmpty()) {
-                    members.append("&cempty");
-                } else {
-                    for (String mem : region.getMembers().getPlayers()) {
-                        members.append(mem).append(", ");
-                    }
-                }
-
-                StringBuilder owner = new StringBuilder();
-                for (String o : region.getOwners().getPlayers()) {
-                    owner.append(o);
-                }
-
-
-                for (String st : m) {
-                    st = st.replace("{plotOwner}", owner);
-                    st = st.replace("{plotMembers}", members.toString());
-                    st = st.replace("{plotCenter}", "x: " + x + " y: ~ z: " + z);
-                    ColorUtil.sendMsg(p, st);
-                }
-
-            }
-
-        }
 
         if (args[0].equalsIgnoreCase("list")) {
 
-            Inventory inv = Bukkit.createInventory(null, 9 * 6, Messages.getMessage("plotListGuiName"));
+            if (args.length != 2) {
+                ColorUtil.sendMsg(p, Messages.getMessage("correctCommand") + "/plot list <nick>");
+                return false;
+            }
+
+
+            Inventory inv = Bukkit.createInventory(null, 9 * 6, Messages.getMessage("plotListGuiName") + args[1]);
 
             RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
             RegionManager regions = container.get(BukkitAdapter.adapt(p.getWorld()));
@@ -116,7 +72,7 @@ public class PlotCommand implements CommandExecutor {
 
             for (ProtectedRegion region : regions.getRegions().values()) {
 
-                if (region.getId().contains(p.getName().toLowerCase())) {
+                if (region.getId().contains(args[1].toLowerCase())) {
 
 
                     int x = region.getMaximumPoint().getBlockX() - Config.getPlotSize();
@@ -182,11 +138,6 @@ public class PlotCommand implements CommandExecutor {
 
             for (ProtectedRegion region : regions) {
 
-                if (!region.getOwners().contains(p.getName())) {
-                    ColorUtil.sendMsg(p, Messages.getMessage("notTheOwner"));
-                    continue;
-                }
-
                 Player playerAdd = Bukkit.getPlayer(args[1]);
 
                 if (playerAdd == null) {
@@ -196,7 +147,7 @@ public class PlotCommand implements CommandExecutor {
 
                 region.getMembers().addPlayer(playerAdd.getName());
                 ColorUtil.sendMsg(p, Messages.getMessage("successAddPlayer").replace("{player}", playerAdd.getName()));
-                ColorUtil.sendMsg(playerAdd, Messages.getMessage("successAddPlayerInfo").replace("{owner}", p.getName()));
+                ColorUtil.sendMsg(playerAdd, Messages.getMessage("successAddPlayerInfo").replace("{owner}", args[1]));
 
             }
             return false;
@@ -216,11 +167,6 @@ public class PlotCommand implements CommandExecutor {
 
             for (ProtectedRegion region : regions) {
 
-                if (!region.getOwners().contains(p.getName())) {
-                    ColorUtil.sendMsg(p, Messages.getMessage("notTheOwner"));
-                    continue;
-                }
-
                 if (!region.getMembers().contains(args[1])) {
                     ColorUtil.sendMsg(p, Messages.getMessage("playerIsNotMember"));
                     continue;
@@ -233,15 +179,13 @@ public class PlotCommand implements CommandExecutor {
                 ColorUtil.sendMsg(p, Messages.getMessage("successKickPlayer").replace("{player}", args[1]));
 
                 if (playerKick != null) {
-                    ColorUtil.sendMsg(playerKick, Messages.getMessage("successKickPlayerInfo").replace("{owner}", p.getName()));
+                    ColorUtil.sendMsg(playerKick, Messages.getMessage("successKickPlayerInfo").replace("{owner}", args[1]));
                 }
             }
 
             return false;
         }
 
-
         return false;
     }
-
 }

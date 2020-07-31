@@ -17,7 +17,7 @@ import pl.mineEasyPlots.configs.Config;
 import pl.mineEasyPlots.configs.Messages;
 import pl.mineEasyPlots.utils.ColorUtil;
 
-public class BlockBreakListener implements Listener {
+public class PlotDeleteListener implements Listener {
 
     @EventHandler
     private void event(BlockBreakEvent e) {
@@ -40,7 +40,7 @@ public class BlockBreakListener implements Listener {
                 continue;
             }
 
-            if (!region.getOwners().contains(p.getName())) {
+            if (!region.getOwners().contains(p.getName()) || !p.hasPermission("mineEasyPlots.admin")) {
                 e.setCancelled(true);
                 continue;
             }
