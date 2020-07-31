@@ -12,7 +12,7 @@ import pl.mineEasyPlots.configs.Messages;
 import pl.mineEasyPlots.utils.ColorUtil;
 import pl.mineEasyPlots.utils.RegionUtil;
 
-public class BlockPlaceListener implements Listener {
+public class PlotCreateListener implements Listener {
 
     @EventHandler
     private void event(BlockPlaceEvent e) {

@@ -8,10 +8,7 @@ import pl.mineEasyPlots.commands.PlotCommand;
 import pl.mineEasyPlots.commands.PlotTabCompleter;
 import pl.mineEasyPlots.configs.Config;
 import pl.mineEasyPlots.configs.Messages;
-import pl.mineEasyPlots.listeners.BlockBreakListener;
-import pl.mineEasyPlots.listeners.BlockPlaceListener;
-import pl.mineEasyPlots.listeners.InventoryClickListener;
-import pl.mineEasyPlots.listeners.ProtectPlotBlockListeners;
+import pl.mineEasyPlots.listeners.*;
 import pl.mineEasyPlots.runnable.PlotVisualizeRunnable;
 
 public final class Main extends JavaPlugin {
@@ -30,10 +27,11 @@ public final class Main extends JavaPlugin {
         saveDefaultConfig();
         Config.load();
 
-        Bukkit.getPluginManager().registerEvents(new BlockPlaceListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlotCreateListener(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
-        Bukkit.getPluginManager().registerEvents(new BlockBreakListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlotDeleteListener(), this);
         Bukkit.getPluginManager().registerEvents(new ProtectPlotBlockListeners(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
         getCommand("plot").setExecutor(new PlotCommand());
         getCommand("plot").setTabCompleter(new PlotTabCompleter());
         getCommand("plotadmin").setExecutor(new PlotAdminCommand());
