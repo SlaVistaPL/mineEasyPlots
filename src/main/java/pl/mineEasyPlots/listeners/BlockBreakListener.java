@@ -40,7 +40,7 @@ public class BlockBreakListener implements Listener {
                 continue;
             }
 
-            if (!region.getOwners().contains(p.getName())) {
+            if (!region.getOwners().contains(p.getName()) || !p.hasPermission("mineEasyPlots.admin")) {
                 e.setCancelled(true);
                 continue;
             }

@@ -2,7 +2,10 @@ package pl.mineEasyPlots;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import pl.mineEasyPlots.commands.PlotAdminCommand;
+import pl.mineEasyPlots.commands.PlotAdminTabCompleter;
 import pl.mineEasyPlots.commands.PlotCommand;
+import pl.mineEasyPlots.commands.PlotTabCompleter;
 import pl.mineEasyPlots.configs.Config;
 import pl.mineEasyPlots.configs.Messages;
 import pl.mineEasyPlots.listeners.BlockBreakListener;
@@ -32,6 +35,9 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new BlockBreakListener(), this);
         Bukkit.getPluginManager().registerEvents(new ProtectPlotBlockListeners(), this);
         getCommand("plot").setExecutor(new PlotCommand());
+        getCommand("plot").setTabCompleter(new PlotTabCompleter());
+        getCommand("plotadmin").setExecutor(new PlotAdminCommand());
+        getCommand("plotadmin").setTabCompleter(new PlotAdminTabCompleter());
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new PlotVisualizeRunnable(), 20, 20);
 
         // Plugin startup logic

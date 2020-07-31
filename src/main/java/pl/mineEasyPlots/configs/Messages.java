@@ -48,6 +48,18 @@ public class Messages {
                 return sb.toString();
             }
 
+            if (mess.equalsIgnoreCase("commandAdminHelp")) {
+                List<String> join = config.getStringList("messages.commandAdminHelp");
+                StringBuilder sb = new StringBuilder();
+                for (String s : join) {
+                    sb.append(s + ";");
+                }
+                if (!messages.containsKey(mess)) {
+                    messages.put(mess, sb.toString());
+                }
+                return sb.toString();
+            }
+
             if (mess.equalsIgnoreCase("plotInfo")) {
                 List<String> join = config.getStringList("messages.plotInfo");
                 StringBuilder sb = new StringBuilder();

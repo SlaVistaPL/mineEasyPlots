@@ -21,7 +21,7 @@ public class PlotVisualizeRunnable implements Runnable {
         if (!UserManager.getUsers().isEmpty()) {
             for (User u : UserManager.getUsers()) {
 
-                if (!u.isVisualize()) {
+                if (!u.isVisualizes()) {
                     continue;
                 }
 
