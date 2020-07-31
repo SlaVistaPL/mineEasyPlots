@@ -1,13 +1,13 @@
 #Plot size from center
 plotSize: 20
 
-#Plot block | After place this block plot will be create!
+#Plot block | After place of this block, plot will be created.
 plotBlock: NOTE_BLOCK
 
-#Limit plots for default player
+#Limit of plots for player (default).
 plotsPlayerLimit: 5
 
-#Limit plots for Vip player
-#Need permissions mineeasyplots.vip
+#Limit of plots for Vip player
+#Permission: mineeasyplots.vip
 plotsVipLimit: 10
 
