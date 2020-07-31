@@ -65,7 +65,7 @@ public class RegionUtil {
         region.setFlag(Flags.FAREWELL_MESSAGE, Messages.getMessage("exitPlot").replace("{plotOwner}", p.getName()));
 
 
-        for (ProtectedRegion rg : region.getIntersectingRegions(regions.getRegions().values())) {
+        for (ProtectedRegion ignored : region.getIntersectingRegions(regions.getRegions().values())) {
             ColorUtil.sendMsg(p, Messages.getMessage("errorCreatePlot"));
             return false;
         }
