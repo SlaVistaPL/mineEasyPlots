@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Messages {
 
-    public static HashMap<String, String> messages = new HashMap<String, String>();
+    public static HashMap<String, String> messages = new HashMap<>();
 
     public static void loadMessages() {
         File m = new File(Main.getInst().getDataFolder(), "messages.yml");
@@ -40,7 +40,7 @@ public class Messages {
                 List<String> join = config.getStringList("messages.commandHelp");
                 StringBuilder sb = new StringBuilder();
                 for (String s : join) {
-                    sb.append(s + ";");
+                    sb.append(s).append(";");
                 }
                 if (!messages.containsKey(mess)) {
                     messages.put(mess, sb.toString());
@@ -52,7 +52,7 @@ public class Messages {
                 List<String> join = config.getStringList("messages.commandAdminHelp");
                 StringBuilder sb = new StringBuilder();
                 for (String s : join) {
-                    sb.append(s + ";");
+                    sb.append(s).append(";");
                 }
                 if (!messages.containsKey(mess)) {
                     messages.put(mess, sb.toString());
@@ -64,7 +64,7 @@ public class Messages {
                 List<String> join = config.getStringList("messages.plotInfo");
                 StringBuilder sb = new StringBuilder();
                 for (String s : join) {
-                    sb.append(s + ";");
+                    sb.append(s).append(";");
                 }
                 if (!messages.containsKey(mess)) {
                     messages.put(mess, sb.toString());
@@ -76,7 +76,7 @@ public class Messages {
                 List<String> join = config.getStringList("messages.plotLoreInGui");
                 StringBuilder sb = new StringBuilder();
                 for (String s : join) {
-                    sb.append(s + ";");
+                    sb.append(s).append(";");
                 }
                 if (!messages.containsKey(mess)) {
                     messages.put(mess, sb.toString());

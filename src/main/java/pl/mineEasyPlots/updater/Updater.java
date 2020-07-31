@@ -13,6 +13,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.logging.Level;
 
+import static java.lang.Integer.*;
+
 public class Updater {
     public static final String VERSION = "SPU 2.0 by stealth-coders";
     private final Plugin plugin;
@@ -93,10 +95,10 @@ public class Updater {
             oldv = oldv.replace('.', '_');
             newv = newv.replace('.', '_');
             if ((oldv.split("_")).length != 0 && (oldv.split("_")).length != 1 && (newv.split("_")).length != 0 && (newv.split("_")).length != 1) {
-                int vnum = Integer.valueOf(oldv.split("_")[0]).intValue();
-                int vsec = Integer.valueOf(oldv.split("_")[1]).intValue();
-                int newvnum = Integer.valueOf(newv.split("_")[0]).intValue();
-                int newvsec = Integer.valueOf(newv.split("_")[1]).intValue();
+                int vnum = parseInt(oldv.split("_")[0]);
+                int vsec = parseInt(oldv.split("_")[1]);
+                int newvnum = parseInt(newv.split("_")[0]);
+                int newvsec = parseInt(newv.split("_")[1]);
                 if (newvnum > vnum)
                     return true;
                 return newvnum == vnum &&
