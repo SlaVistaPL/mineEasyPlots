@@ -38,7 +38,7 @@ public final class Main extends JavaPlugin {
         getCommand("plotadmin").setTabCompleter(new PlotAdminTabCompleter());
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new PlotVisualizeRunnable(), 20, 20);
 
-        int pluginId = 8316;
+        int pluginId = 8367;
         Metrics metrics = new Metrics(this, pluginId);
 
         Logger.log("");
