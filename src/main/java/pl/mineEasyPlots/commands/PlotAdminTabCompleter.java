@@ -22,6 +22,7 @@ public class PlotAdminTabCompleter implements TabCompleter {
             old.add("list");
             old.add("add");
             old.add("kick");
+            old.add("reload");
             StringUtil.copyPartialMatches(args[0], old, tab);
             Collections.sort(tab);
             return tab;
