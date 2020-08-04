@@ -38,8 +38,24 @@ public final class Main extends JavaPlugin {
         getCommand("plotadmin").setTabCompleter(new PlotAdminTabCompleter());
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new PlotVisualizeRunnable(), 20, 20);
 
-        // Plugin startup logic
+        int pluginId = 8367;
+        Metrics metrics = new Metrics(this, pluginId);
 
+        Logger.log("");
+        Logger.log("           _            _____               ______ _       _       \n");
+        Logger.log("          (_)          |  ___|              | ___ \\ |     | |      \n");
+        Logger.log(" _ __ ___  _ _ __   ___| |__  __ _ ___ _   _| |_/ / | ___ | |_ ___ \n");
+        Logger.log("| '_ ` _ \\| | '_ \\ / _ \\  __|/ _` / __| | | |  __/| |/ _ \\| __/ __|\n");
+        Logger.log("| | | | | | | | | |  __/ |__| (_| \\__ \\ |_| | |   | | (_) | |_\\__ \\\n");
+        Logger.log("|_| |_| |_|_|_| |_|\\___\\____/\\__,_|___/\\__, \\_|   |_|\\___/ \\__|___/\n");
+        Logger.log("                                        __/ |                      \n");
+        Logger.log("                                       |___/                       ");
+        Logger.log("");
+        Logger.log("Author: _arturek");
+        Logger.log("Version: " + this.getDescription().getVersion());
+        Logger.log("Web: https://minecodes.pl/");
+        Logger.log("Discord: https://discord.com/invite/XQtBtRj");
+        Logger.log("");
     }
 
     @Override
