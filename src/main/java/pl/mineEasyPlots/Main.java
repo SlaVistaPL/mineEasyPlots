@@ -8,6 +8,7 @@ import pl.mineEasyPlots.commands.PlotAdminTabCompleter;
 import pl.mineEasyPlots.commands.PlotCommand;
 import pl.mineEasyPlots.commands.PlotTabCompleter;
 import pl.mineEasyPlots.configs.Config;
+import pl.mineEasyPlots.configs.FileUpdater;
 import pl.mineEasyPlots.configs.Messages;
 import pl.mineEasyPlots.listeners.*;
 import pl.mineEasyPlots.runnable.PlotVisualizeRunnable;
@@ -30,6 +31,8 @@ public final class Main extends JavaPlugin {
 
         Messages.loadMessages();
         saveDefaultConfig();
+        FileUpdater.checkConfig();
+        FileUpdater.checkMessages();
         Config.load();
 
         if(!Bukkit.getPluginManager().isPluginEnabled("WorldGuard")){
