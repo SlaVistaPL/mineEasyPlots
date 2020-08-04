@@ -66,6 +66,7 @@ public final class Main extends JavaPlugin {
         logger.log(Level.INFO, "                                       |___/                       ");
         logger.log(Level.INFO, "");
         logger.log(Level.INFO, "Author: _arturek");
+        logger.log(Level.INFO, "Collaborators: Nikox3003");
         logger.log(Level.INFO, "Version: " + this.getDescription().getVersion());
         logger.log(Level.INFO, "Web: https://minecodes.pl/");
         logger.log(Level.INFO, "Discord: https://discord.com/invite/XQtBtRj");
