@@ -43,10 +43,12 @@ messages:
     - ' '
   correctCommand: '&cUse: &e'
   thisRegionIsNotPlot: '&cThis region is not plot!'
-  successDeletePlot: '&cSuccessfuly deleted plot!'
+  successDeletePlot: '&cSuccessfully deleted plot!'
   toggleVisualizesPlot: '&aPlot visualizing: &e{value}'
   addPlayerIsOffline: '&cThe player you want to add is offline..'
   playerIsNotMember: '&cThe player you want to kick is not member in this plot.'
   notTheOwner: '&cYou are not the owner this plot!'
   no-permissions: '&cYou don''t have permissions!'
-  limitPlots: "&cYour plots limit is: &e{limit}"
+  limitPlots: "&cReached your plot limit! (&e{limit}/{limit}&c)"
+  showPlotLimit: "&cYour plot limit is: &e{limit}"
+  reloadSuccess: "&aReloaded!"
