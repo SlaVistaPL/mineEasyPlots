@@ -18,9 +18,9 @@ import static java.lang.Integer.*;
 public class Updater {
     public static final String VERSION = "SPU 2.0 by stealth-coders";
     private final Plugin plugin;
-    private final String pluginurl;
+    private final String pluginUrl;
     private URL url;
-    private boolean canceled = false;
+    private boolean isCanceled = false;
 
     private String version;
 
@@ -30,17 +30,17 @@ public class Updater {
 
     private boolean out;
 
-    public Updater(Plugin plugin, String pluginurl) {
+    public Updater(Plugin plugin, String pluginUrl) {
         this.version = "";
         this.out = true;
         try {
-            this.url = new URL(pluginurl);
+            this.url = new URL(pluginUrl);
         } catch (MalformedURLException e) {
-            this.canceled = true;
+            this.isCanceled = true;
             plugin.getLogger().log(Level.WARNING, "Error: Bad URL while checking {0} !", plugin.getDescription().getName());
         }
         this.plugin = plugin;
-        this.pluginurl = pluginurl;
+        this.pluginUrl = pluginUrl;
     }
 
     public void enableOut() {
@@ -52,7 +52,7 @@ public class Updater {
     }
 
     public boolean needsUpdate() {
-        if (this.canceled)
+        if (this.isCanceled)
             return false;
         try {
             URLConnection con = this.url.openConnection();
@@ -61,7 +61,7 @@ public class Updater {
             Node nod = doc.getElementsByTagName("item").item(0);
             NodeList children = nod.getChildNodes();
             this.version = children.item(1).getTextContent();
-            if (newVersionAvailiable(this.plugin.getDescription().getVersion(), this.version.replaceAll("[a-zA-z ]", ""))) {
+            if (newVersionAvailable(this.plugin.getDescription().getVersion(), this.version.replaceAll("[a-zA-z ]", ""))) {
                 return true;
             }
         } catch (IOException | org.xml.sax.SAXException | javax.xml.parsers.ParserConfigurationException e) {
@@ -72,7 +72,7 @@ public class Updater {
     }
 
     public String getNewVersion() {
-        if (this.canceled)
+        if (this.isCanceled)
             return "";
         try {
             URLConnection con = this.url.openConnection();
@@ -90,7 +90,7 @@ public class Updater {
         return "";
     }
 
-    public boolean newVersionAvailiable(String oldv, String newv) {
+    public boolean newVersionAvailable(String oldv, String newv) {
         if (oldv != null && newv != null) {
             oldv = oldv.replace('.', '_');
             newv = newv.replace('.', '_');

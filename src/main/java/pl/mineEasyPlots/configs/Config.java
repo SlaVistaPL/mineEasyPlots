@@ -7,13 +7,15 @@ import pl.mineEasyPlots.Main;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public class Config {
 
     private static int plotSize;
     private static Material plotBlock;
-    private static int plotsPlayerLimit;
-    private static int plotsVipLimit;
+    private static HashMap<String, Integer> plotLimits;
 
     public static FileConfiguration getConfig() {
         return Main.getInst().getConfig();
@@ -30,25 +32,17 @@ public class Config {
     }
 
     public static void reload() {
-        FileConfiguration cfg = Main.getInst().getConfig();
-        File f = new File(Main.getInst().getDataFolder(), "config.yml");
-        try {
-            try {
-                cfg.load(f);
-            } catch (InvalidConfigurationException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Main.getInst().reloadConfig();
+        load();
     }
 
     public static void load() {
 
+        plotLimits = new HashMap<>();
+        for(String section : getConfig().getConfigurationSection("plotLimits").getKeys(false)){
+            plotLimits.put(section, getConfig().getInt("plotLimits." + section));
+        }
         plotSize = getConfig().getInt("plotSize");
-        plotsPlayerLimit = getConfig().getInt("plotsPlayerLimit");
-        plotsVipLimit = getConfig().getInt("plotsVipLimit");
         plotBlock = Material.getMaterial(getConfig().getString("plotBlock"));
 
 
@@ -62,11 +56,7 @@ public class Config {
         return plotBlock;
     }
 
-    public static int getPlotsPlayerLimit() {
-        return plotsPlayerLimit;
-    }
-
-    public static int getPlotsVipLimit() {
-        return plotsVipLimit;
+    public static HashMap<String, Integer> getPlotLimits() {
+        return plotLimits;
     }
 }

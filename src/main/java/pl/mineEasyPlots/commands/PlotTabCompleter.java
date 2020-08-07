@@ -21,9 +21,10 @@ public class PlotTabCompleter implements TabCompleter {
             List<String> tab = new ArrayList<>();
             old.add("list");
             old.add("info");
-            old.add("visualizes");
+            old.add("visualize");
             old.add("add");
             old.add("kick");
+            old.add("limit");
             StringUtil.copyPartialMatches(args[0], old, tab);
             Collections.sort(tab);
             return tab;

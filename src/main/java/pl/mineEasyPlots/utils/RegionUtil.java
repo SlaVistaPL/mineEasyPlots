@@ -10,11 +10,25 @@ import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import org.bukkit.entity.Player;
+import pl.mineEasyPlots.Main;
 import pl.mineEasyPlots.configs.Config;
 import pl.mineEasyPlots.configs.Messages;
 
+import java.util.Map;
+import java.util.logging.Level;
+
 public class RegionUtil {
 
+
+    public static int getPlayerPlotLimit(Player p){
+        int playerPlotLimit = 0;
+        for(Map.Entry<String, Integer> entry : Config.getPlotLimits().entrySet()){
+            if(p.hasPermission("mineeasyplots.limits." + entry.getKey())){
+                playerPlotLimit = entry.getValue();
+            }
+        }
+        return playerPlotLimit;
+    }
 
     public static boolean createRegion(Player p, int minX, int minZ, int maxX, int maxZ) {
         RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
@@ -25,34 +39,30 @@ public class RegionUtil {
         }
 
 
-        int plotLimit = 0;
-        int playerPlotLimit;
-        if (p.hasPermission("mineeasyplots.vip")) {
-            playerPlotLimit = Config.getPlotsVipLimit();
-        } else {
-            playerPlotLimit = Config.getPlotsPlayerLimit();
-        }
-
+        int playerPlots = 0;
+        int playerPlotLimit = 0;
+        // Get player plot limit
+        playerPlotLimit = getPlayerPlotLimit(p);
         for (ProtectedRegion pr : regions.getRegions().values()) {
             if (pr.getOwners().contains(p.getName().toLowerCase())) {
-                plotLimit++;
+                playerPlots++;
             }
         }
 
-        if (plotLimit >= playerPlotLimit) {
+        if (playerPlots >= playerPlotLimit) {
             ColorUtil.sendMsg(p, Messages.getMessage("limitPlots").replace("{limit}", String.valueOf(playerPlotLimit)));
             return false;
         }
 
 
-        //create region
+        // Create region
         BlockVector3 min = BlockVector3.at(minX, 0, minZ);
         BlockVector3 max = BlockVector3.at(maxX, 255, maxZ);
         String regionId = regions.size() + "-mineEasyPlots-" + p.getName();
         ProtectedRegion region = new ProtectedCuboidRegion(regionId, min, max);
 
 
-        //set owner
+        // Set owner
         DefaultDomain owners = region.getOwners();
         owners.addPlayer(p.getName());
 

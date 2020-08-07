@@ -52,6 +52,12 @@ public class PlotAdminCommand implements CommandExecutor {
             return false;
         }
 
+        if (args[0].equalsIgnoreCase("reload")) {
+            Config.reload();
+            ColorUtil.sendMsg(p, Messages.getMessage("reloadSuccess"));
+            return false;
+        }
+
 
         if (args[0].equalsIgnoreCase("list")) {
 
@@ -135,6 +141,10 @@ public class PlotAdminCommand implements CommandExecutor {
 
             ApplicableRegionSet regions = WorldGuard.getInstance().getPlatform().getRegionContainer().get(new BukkitWorld(p.getWorld())).getApplicableRegions(BlockVector3.at(p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ()));
 
+            if (regions.size() == 0) {
+                ColorUtil.sendMsg(p, Messages.getMessage("thisRegionIsNotPlot"));
+                return false;
+            }
 
             for (ProtectedRegion region : regions) {
 
@@ -164,6 +174,10 @@ public class PlotAdminCommand implements CommandExecutor {
 
             ApplicableRegionSet regions = WorldGuard.getInstance().getPlatform().getRegionContainer().get(new BukkitWorld(p.getWorld())).getApplicableRegions(BlockVector3.at(p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ()));
 
+            if (regions.size() == 0) {
+                ColorUtil.sendMsg(p, Messages.getMessage("thisRegionIsNotPlot"));
+                return false;
+            }
 
             for (ProtectedRegion region : regions) {
 
@@ -184,6 +198,12 @@ public class PlotAdminCommand implements CommandExecutor {
             }
 
             return false;
+        }
+
+        String[] m = Messages.getMessage("commandAdminHelp").split(";");
+
+        for (String st : m) {
+            ColorUtil.sendMsg(p, st);
         }
 
         return false;

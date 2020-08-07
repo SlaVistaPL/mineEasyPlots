@@ -22,6 +22,7 @@ import pl.mineEasyPlots.configs.Messages;
 import pl.mineEasyPlots.managers.UserManager;
 import pl.mineEasyPlots.objects.User;
 import pl.mineEasyPlots.utils.ColorUtil;
+import pl.mineEasyPlots.utils.RegionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -176,9 +177,12 @@ public class PlotCommand implements CommandExecutor {
                 return false;
             }
 
-
             ApplicableRegionSet regions = WorldGuard.getInstance().getPlatform().getRegionContainer().get(new BukkitWorld(p.getWorld())).getApplicableRegions(BlockVector3.at(p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ()));
 
+            if (regions.size() == 0) {
+                ColorUtil.sendMsg(p, Messages.getMessage("thisRegionIsNotPlot"));
+                return false;
+            }
 
             for (ProtectedRegion region : regions) {
 
@@ -213,6 +217,10 @@ public class PlotCommand implements CommandExecutor {
 
             ApplicableRegionSet regions = WorldGuard.getInstance().getPlatform().getRegionContainer().get(new BukkitWorld(p.getWorld())).getApplicableRegions(BlockVector3.at(p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ()));
 
+            if (regions.size() == 0) {
+                ColorUtil.sendMsg(p, Messages.getMessage("thisRegionIsNotPlot"));
+                return false;
+            }
 
             for (ProtectedRegion region : regions) {
 
@@ -238,9 +246,20 @@ public class PlotCommand implements CommandExecutor {
             }
 
             return false;
+
         }
 
+        if(args[0].equalsIgnoreCase("limit")) {
+            int limit = RegionUtil.getPlayerPlotLimit(p);
+            ColorUtil.sendMsg(p, Messages.getMessage("showPlotLimit").replace("{limit}", String.valueOf(limit)));
+            return false;
+        }
 
+        String[] m = Messages.getMessage("commandHelp").split(";");
+
+        for (String st : m) {
+            ColorUtil.sendMsg(p, st);
+        }
         return false;
     }
 
