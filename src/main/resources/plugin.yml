@@ -13,6 +13,7 @@ commands:
   plotadmin:
     description: Manage plots
     aliases: [pa, plotsadmin]
+
 permissions:
   mineeasyplots.limits.default:
     default: true

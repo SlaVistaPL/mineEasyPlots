@@ -40,7 +40,7 @@ public class PlotDeleteListener implements Listener {
                 continue;
             }
 
-            if (!region.getOwners().contains(p.getName()) || !p.hasPermission("mineEasyPlots.admin")) {
+            if (!region.getOwners().contains(p.getName()) && !p.hasPermission("mineEasyPlots.admin")) {
                 e.setCancelled(true);
                 continue;
             }

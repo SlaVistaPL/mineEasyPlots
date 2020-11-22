@@ -8,11 +8,12 @@ import pl.mineEasyPlots.commands.PlotAdminTabCompleter;
 import pl.mineEasyPlots.commands.PlotCommand;
 import pl.mineEasyPlots.commands.PlotTabCompleter;
 import pl.mineEasyPlots.configs.Config;
-import pl.mineEasyPlots.configs.FileUpdater;
 import pl.mineEasyPlots.configs.Messages;
 import pl.mineEasyPlots.listeners.*;
 import pl.mineEasyPlots.runnable.PlotVisualizeRunnable;
+import pl.mineEasyPlots.utils.LiteDataUtil;
 
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,11 +32,9 @@ public final class Main extends JavaPlugin {
 
         Messages.loadMessages();
         saveDefaultConfig();
-        FileUpdater.checkConfig();
-        FileUpdater.checkMessages();
         Config.load();
 
-        if(!Bukkit.getPluginManager().isPluginEnabled("WorldGuard")){
+        if (!Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
             logger.log(Level.SEVERE, ChatColor.RED + "Dependency WorldGuard not found!\nDisabling...");
             getPluginLoader().disablePlugin(this);
             return;
@@ -71,10 +70,15 @@ public final class Main extends JavaPlugin {
         logger.log(Level.INFO, "Web: https://minecodes.pl/");
         logger.log(Level.INFO, "Discord: https://discord.com/invite/XQtBtRj");
         logger.log(Level.INFO, "");
+
+
+        LiteDataUtil.load(new File(this.getDataFolder() + "/data.json"));
+
     }
 
     @Override
     public void onDisable() {
+        LiteDataUtil.getInstance().toFile(new File(this.getDataFolder() + "/data.json"));
         Bukkit.getScheduler().cancelTasks(this);
     }
 }

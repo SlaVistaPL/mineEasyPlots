@@ -10,12 +10,10 @@ import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import org.bukkit.entity.Player;
-import pl.mineEasyPlots.Main;
 import pl.mineEasyPlots.configs.Config;
 import pl.mineEasyPlots.configs.Messages;
 
 import java.util.Map;
-import java.util.logging.Level;
 
 public class RegionUtil {
 
@@ -58,8 +56,9 @@ public class RegionUtil {
         // Create region
         BlockVector3 min = BlockVector3.at(minX, 0, minZ);
         BlockVector3 max = BlockVector3.at(maxX, 255, maxZ);
-        String regionId = regions.size() + "-mineEasyPlots-" + p.getName();
+        String regionId = LiteDataUtil.getInstance().ID + "-mineEasyPlots-" + p.getName();
         ProtectedRegion region = new ProtectedCuboidRegion(regionId, min, max);
+        LiteDataUtil.getInstance().ID++;
 
 
         // Set owner
@@ -69,8 +68,6 @@ public class RegionUtil {
         region.setOwners(owners);
 
         region.setFlag(Flags.DENY_MESSAGE, Messages.getMessage("denyFlags"));
-        region.setFlag(Flags.GREET_TITLE, Messages.getMessage("entryPlot").replace("{plotOwner}", p.getName()));
-        region.setFlag(Flags.FAREWELL_TITLE, Messages.getMessage("exitPlot").replace("{plotOwner}", p.getName()));
         region.setFlag(Flags.GREET_MESSAGE, Messages.getMessage("entryPlot").replace("{plotOwner}", p.getName()));
         region.setFlag(Flags.FAREWELL_MESSAGE, Messages.getMessage("exitPlot").replace("{plotOwner}", p.getName()));
 
@@ -82,8 +79,6 @@ public class RegionUtil {
 
         //add region
         regions.addRegion(region);
-
-
         return true;
     }
 
