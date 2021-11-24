@@ -5,6 +5,8 @@ import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.domains.DefaultDomain;
 import com.sk89q.worldguard.protection.flags.Flags;
+import com.sk89q.worldguard.protection.flags.RegionGroup;
+import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
@@ -70,6 +72,16 @@ public class RegionUtil {
         region.setFlag(Flags.DENY_MESSAGE, Messages.getMessage("denyFlags"));
         region.setFlag(Flags.GREET_MESSAGE, Messages.getMessage("entryPlot").replace("{plotOwner}", p.getName()));
         region.setFlag(Flags.FAREWELL_MESSAGE, Messages.getMessage("exitPlot").replace("{plotOwner}", p.getName()));
+        region.setFlag(Flags.USE, StateFlag.State.DENY);
+        region.setFlag(Flags.USE.getRegionGroupFlag(), RegionGroup.NON_MEMBERS);
+        region.setFlag(Flags.INTERACT, StateFlag.State.DENY);
+        region.setFlag(Flags.INTERACT.getRegionGroupFlag(), RegionGroup.NON_MEMBERS);
+        region.setFlag(Flags.BLOCK_BREAK, StateFlag.State.DENY);
+        region.setFlag(Flags.BLOCK_BREAK.getRegionGroupFlag(), RegionGroup.NON_MEMBERS);
+        region.setFlag(Flags.BLOCK_PLACE, StateFlag.State.DENY);
+        region.setFlag(Flags.BLOCK_PLACE.getRegionGroupFlag(), RegionGroup.NON_MEMBERS);
+        region.setFlag(Flags.CHEST_ACCESS, StateFlag.State.DENY);
+        region.setFlag(Flags.CHEST_ACCESS.getRegionGroupFlag(), RegionGroup.NON_MEMBERS);
 
 
         for (ProtectedRegion ignored : region.getIntersectingRegions(regions.getRegions().values())) {
